@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="jquery.min.js"></script>
+    
+    <link href='asColorPicker.min.css' rel="stylesheet">
+  </head>
+  <body>
+
+    <main>
+      <div class="flexContainer">
+        <div class="leftDiv">
+          <canvas id="myCanvas" width="1280" height="720" style="border:1px solid red;"></canvas>
+        </div>
+        <div class="rightDiv">
+          <a href="http://tubein.com/" id=inline-btn>Dummy text</a>
+          <textarea class="textInput"></textarea>
+          <div class="alignText">
+            <button id="leftAlignTxt">Left</button>
+            <button id="centerAlignTxt">Center</button>
+            <button id="rightAlignTxt">Right</button>
+            <button id="editTxt">Edit Text</button>
+          </div>
+          <div class="alignText">
+            <button id="flipTxt">Flip</button>
+            <button id="boldTxt">B</button>
+            <button id="italicTxt">I</button>
+            <button id="removeBtn">Remove</button>
+
+          </div>
+          <div class="alignText">
+            <button id="addTextBtn">Add Text</button>
+            <input type="file" id="imageInput" placeholder="Add Image" ="">
+          </div>
+          <div class="example">
+            <input type="text" class="colorInput" value="#000"/>
+            
+          </div>
+        </div>
+    </main>
+  <script src="fabric.min.js"></script> 
+  <script src="jquery-asColorPicker.js"></script> 
+  <script src="jquery-asColor.js"></script>
+  <script src="jquery-asGradient.js"></script>
+  <style type="text/css">
+    *{
+      margin:0;
+      padding:0;
+    }
+    #inline-btn{
+      position:absolute;
+      font-size: 55px;
+      font-family: 'Arial';
+      text-decoration:none;
+      display:none;
+      opacity:0;
+    }
+    .flexContainer{
+      display:flex;
+      flex-direction:row;
+      justify-content:space-between;
+    }
+
+    .leftDiv{
+      flex:0 0 85%;
+      overflow:hidden;
+    }
+
+    .rightDiv{
+      flex:0 0 15%;
+    }
+
+    .alignText{
+      text-align:center;
+      padding:0 15px;
+    }
+
+    .textInput{
+      width:100%;
+      height:100px;
+      border:1px solid #808080;
+      margin-bottom:10px;
+    }
+  </style>
+  <script type="text/javascript">
+    $(function() {
+      $(".example_default").asColorPicker({
+         hideInput: true
+      });
+
+    fabric.Canvas.prototype.getAbsoluteCoords = function(object) {
+      return {
+        left: object.left + this._offset.left,
+        top: object.top + this._offset.top,
+        width:object.width
+      };
+    }
+
+    var btn = document.getElementById('inline-btn'),
+    btnWidth = 85,
+    btnHeight = 18;
+
+
+    
+
+    var canvasTest = new fabric.Canvas('myCanvas');
+    var video1El = document.getElementById('video');
+    var imgElement = "";
+    
+    function positionBtn(obj) {
+      var absCoords = canvasTest.getAbsoluteCoords(obj);
+
+      // btn.style.left = (absCoords.left) + 'px';
+      // btn.style.top = (absCoords.top) + 'px';
+      // btn.style.width = absCoords.width;
+    }
+
+    var normalText1 = new fabric.IText("Dummy text", {
+      left: 520,
+      top: 400,
+      fontSize: 55,
+      fontFamily:'Arial',
+      fill: "#f00",
+    });
+    positionBtn(normalText1);
+    normalText1.on('moving', function() { positionBtn(normalText1) });
+
+    normalText1.on('mousedown', function(opt) {
+    // inside opt you found `e`
+    // you should be able to calculate where you clicked
+    
+    // var pointClicked = opt.target.canvas.getPointer(opt.e);
+      // $('#inline-btn').click(function(){
+      // });
+      var href = $('#inline-btn').attr('href');
+      window.location.href = href;
+      
+
+    });
+      // normalText1.set({
+      //   'left': canvasTest.getWidth() - normalText1.width -20
+      // });
+
+      canvasTest.add(normalText1);
+
+      $('#leftAlignTxt').on('click',function(){
+        normalText1.set({
+          'left': 0
+        });
+        canvasTest.add(normalText1);
+      });
+
+      $('#centerAlignTxt').on('click',function(){
+        normalText1.set({
+          'left': (canvasTest.getWidth() - normalText1.width)/2
+        });
+        canvasTest.add(normalText1);
+      });
+
+      $('#rightAlignTxt').on('click',function(){
+        normalText1.set({
+          'left': canvasTest.getWidth() - normalText1.width
+        });
+        canvasTest.add(normalText1);
+      });
+
+      $('#editTxt').on('click',function(){
+        if($('.textInput').val() != ''){
+          normalText1.text = $('.textInput').val();
+          canvasTest.renderAll();
+        }
+      });
+
+      $('#boldTxt').on('click',function(){
+        if(normalText1.fontWeight == 'bold'){
+          normalText1.set({
+            'fontWeight': 'normal'
+          });
+          canvasTest.add(normalText1);
+        } else{
+          normalText1.set({
+            'fontWeight': 'bold'
+          });
+          canvasTest.add(normalText1);
+        }
+      });
+      
+      $('#italicTxt').on('click',function(){
+        if(normalText1.fontStyle == 'italic'){
+          normalText1.set({
+            'fontStyle': 'normal'
+          });
+          canvasTest.add(normalText1);
+        } else{
+          normalText1.set({
+            'fontStyle': 'italic'
+          });
+          canvasTest.add(normalText1);
+        }
+      });
+      
+      $('#flipTxt').on('click',function(){
+        normalText1.flipY();
+        canvasTest.renderAll();
+      });
+
+      $('#removeBtn').on('click',function(){
+       var activeObj = canvasTest.getActiveObject()
+        canvasTest.remove(activeObj);
+        canvasTest.renderAll();
+      });
+
+    document.getElementById('imageInput').addEventListener("change", function(e) {
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      
+      reader.onload = function(f) {
+        var data = f.target.result;
+        
+        fabric.Image.fromURL(data, function(img) {
+          startCanvasBGURI = img.toDataURL('image/png', 1.0);
+          img.set({
+            top: 0,
+            left: 0,
+            crossOrigin: 'anonymous',
+            scale:0.1
+          });
+
+          // canvasTest.setBackgroundImage(img, canvasTest.renderAll.bind(canvasTest), {
+          //   width:300,
+          //   height:150
+          // });
+          canvasTest.add(img);
+        });
+      };
+      reader.readAsDataURL(file);
+    });
+
+    reader.readAsDataURL(file);
+      document.getElementById('addTextBtn').addEventListener('click', function () {
+        var editField =  new fabric.IText('Tap and Type', {
+          left: 150,
+          top: 220 ,
+          fill: "#000",
+          fontSize:65,
+        });
+        canvasTest.add(editField);
+        canvasTest.setActiveObject(editField);
+      });
+
+    });
+  </script>
+</body>
+</html>
+

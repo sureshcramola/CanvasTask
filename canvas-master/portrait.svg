@@ -1,0 +1,17 @@
+<svg width="720" height="1280" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <g>
+  <title>background</title>
+  <rect fill="#fff" id="canvas_background" height="1282" width="722" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Portrait</title>
+  <rect id="svg_2" height="1280" width="720" y="0" x="0" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#7FFFD4"/>
+     <text x="10" y="35" font-family="Verdana" font-size="35" fill="white">
+    Portrait Video
+  </text>
+ </g>
+</svg>

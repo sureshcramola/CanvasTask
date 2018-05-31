@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      input{
+      display: inline;
+      }
+      .mainWrapper{
+      display:flex;
+      flex-direction:row;
+      justify-content:space-between;
+      }
+      .rightDiv ul{
+      padding-left:0;
+      list-style:none;
+      margin-top:0;
+      }
+      #layoutList li{
+      cursor:pointer;
+      font-size:14px;
+      padding:3px 20px 3px;
+      border-bottom:1px solid #808080;
+      }
+      .rightDiv{
+      flex:1;
+      }
+      .leftDiv {
+        width:1280px;
+        height:720px;
+        background-color:#000;
+      }
+      .leftDiv canvas{
+        width:100%;
+        height:100%;
+      }
+      .button{
+        border:1px solid #808080;
+        padding:3px 10px;
+        border-radius:3px;
+        color:#000;
+        text-decoration:none;
+        display:inline-block;
+        font-size:15px;
+        background-color:transparent;
+        cursor:pointer;
+        margin-top:10px;
+        line-height:1.2;
+      }
+    </style>
+    <title></title>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <!-- <script src="fabric.min.js"></script> -->
+  </head>
+  <body>
+    <header>
+      <nav>
+      </nav>
+    </header>
+    <main>
+      <div class="mainWrapper">
+      <div class="leftDiv">
+        <canvas id="canvas" width="1280" height="720">
+        </canvas>
+        
+        <form>
+          <select id='layout'>
+            <option value="canvas">canvas</option>
+            <option value="MTH-2-L-0">MTH-2-L-0</option>
+            <option value="MTH-3-L-0">MTH-3-L-0</option>
+            <option value="MTH-4-L-0">MTH-4-L-0</option>
+            <option value="MTH-5-L-0">MTH-5-L-0</option>
+            <option value="MTH-2-R-0">MTH-2-R-0</option>
+            <option value="MTH-3-R-0">MTH-3-R-0</option>
+            <option value="MTH-4-R-0">MTH-4-R-0</option>
+            <option value="MTH-5-R-0">MTH-5-R-0</option>
+            <option value="MTH-2-S-0">MTH-2-S-0</option>
+            <option value="MTH-3-S-0">MTH-3-S-0</option>
+            <option value="MTH-5-S-0">MTH-5-S-0</option>
+            <option value="MTV-2-L-0">MTV-2-L-0</option>
+            <option value="MTV-3-L-0">MTV-3-L-0</option>
+            <option value="MTV-4-L-0">MTV-4-L-0</option>
+            <option value="MTV-5-L-0">MTV-5-L-0</option>
+            <option value="MTV-2-R-0">MTV-2-R-0</option>
+            <option value="MTV-3-R-0">MTV-3-R-0</option>
+            <option value="MTV-4-R-0">MTV-4-R-0</option>
+            <option value="MTV-5-R-0">MTV-5-R-0</option>
+            <option value="MTF-2-L-0">MTF-2-L-0</option>
+            <option value="MTF-3-L-0">MTF-3-L-0</option>
+            <option value="MTF-4-L-0">MTF-4-L-0</option>
+            <option value="MTF-5-L-0">MTF-5-L-0</option>
+            <option value="MTF-2-R-0">MTF-2-R-0</option>
+            <option value="MTF-3-R-0">MTF-3-R-0</option>
+            <option value="MTF-4-R-0">MTF-4-R-0</option>
+            <option value="MTF-5-R-0">MTF-5-R-0</option>
+            <option value="MTH-2-R-1">MTH-2-R-1</option>
+            <option value="MTH-2-L-1">MTH-2-L-1</option>
+            <option value="MTH-3-S-1">MTH-3-S-1</option>
+            <option value="MTH-4-L-1">MTH-4-L-1</option>
+            <option value="MTH-5-L-1">MTH-5-L-1</option>
+            <option value="MTH-4-R-1">MTH-4-R-1</option>
+            <option value="MTH-5-R-1">MTH-5-R-1</option>
+            <option value="MTF-2-R-2">MTF-2-R-2</option>
+            <option value="MTF-2-L-2">MTF-2-L-2</option>
+            <option value="MTF-3-S-2">MTF-3-S-2</option>
+            <option value="MTF-4-L-2">MTF-4-L-2</option>
+            <option value="MTV-5-L-2">MTV-5-L-2</option>
+            <option value="MTF-4-R-2">MTF-4-R-2</option>
+            <option value="MTV-5-R-2">MTV-5-R-2</option>
+            <option value="MTH-1-R-3">MTH-1-R-3</option>
+            <option value="MTH-2-R-3">MTH-2-R-3</option>
+            <option value="MTH-3-R-3">MTH-3-R-3</option>
+            <option value="MTH-4-R-3">MTH-4-R-3</option>
+            <option value="MTH-5-R-3">MTH-5-R-3</option>
+            <option value="MTH-1-L-3">MTH-1-L-3</option>
+            <option value="MTH-2-L-3">MTH-2-L-3</option>
+            <option value="MTH-3-L-3">MTH-3-L-3</option>
+            <option value="MTH-4-L-3">MTH-4-L-3</option>
+            <option value="MTH-5-L-3">MTH-5-L-3</option>
+            <option value="MTH-1-L-0">MTH-1-L-0</option>
+            <option value="MTH-1-L-1">MTH-1-L-1</option>
+            <option value="MTH-1-L-2">MTH-1-L-2</option>
+            <option value="MTH-1-R-0">MTH-1-R-0</option>
+            <option value="MTH-1-R-1">MTH-1-R-1</option>
+            <option value="MTH-1-R-2">MTH-1-R-2</option>
+          </select>
+        </form>
+        <button onclick="draw()" class="button">render</button>
+        <a href="#" download="Canvas.png"  class="button" id="canvasDownloadBtn">Download</a>
+      </div>
+      <div class="rightDiv">
+        <ul id="layoutList">
+          <li data-val="MTH-2-L-0">MTH-2-L-0</li>
+          <li data-val="MTH-3-L-0">MTH-3-L-0</li>
+          <li data-val="MTH-4-L-0">MTH-4-L-0</li>
+          <li data-val="MTH-5-L-0">MTH-5-L-0</li>
+          <li data-val="MTH-2-R-0">MTH-2-R-0</li>
+          <li data-val="MTH-3-R-0">MTH-3-R-0</li>
+          <li data-val="MTH-4-R-0">MTH-4-R-0</li>
+          <li data-val="MTH-5-R-0">MTH-5-R-0</li>
+          <li data-val="MTH-2-S-0">MTH-2-S-0</li>
+          <li data-val="MTH-3-S-0">MTH-3-S-0</li>
+          <li data-val="MTH-5-S-0">MTH-5-S-0</li>
+          <li data-val="MTV-2-L-0">MTV-2-L-0</li>
+          <li data-val="MTV-3-L-0">MTV-3-L-0</li>
+          <li data-val="MTV-4-L-0">MTV-4-L-0</li>
+          <li data-val="MTV-5-L-0">MTV-5-L-0</li>
+          <li data-val="MTV-2-R-0">MTV-2-R-0</li>
+          <li data-val="MTV-3-R-0">MTV-3-R-0</li>
+          <li data-val="MTV-4-R-0">MTV-4-R-0</li>
+          <li data-val="MTV-5-R-0">MTV-5-R-0</li>
+          <li data-val="MTF-2-L-0">MTF-2-L-0</li>
+          <li data-val="MTF-3-L-0">MTF-3-L-0</li>
+          <li data-val="MTF-4-L-0">MTF-4-L-0</li>
+          <li data-val="MTF-5-L-0">MTF-5-L-0</li>
+          <li data-val="MTF-2-R-0">MTF-2-R-0</li>
+          <li data-val="MTF-3-R-0">MTF-3-R-0</li>
+          <li data-val="MTF-4-R-0">MTF-4-R-0</li>
+          <li data-val="MTF-5-R-0">MTF-5-R-0</li>
+          <li data-val="MTH-2-R-1">MTH-2-R-1</li>
+          <li data-val="MTH-2-L-1">MTH-2-L-1</li>
+
+          <li data-val="MTH-3-S-1">MTH-3-S-1</li>
+          <li data-val="MTH-4-L-1">MTH-4-L-1</li>
+          <li data-val="MTH-5-L-1">MTH-5-L-1</li>
+          <li data-val="MTH-4-R-1">MTH-4-R-1</li>
+          <li data-val="MTH-5-R-1">MTH-5-R-1</li>
+          <li data-val="MTF-2-R-2">MTF-2-R-2</li>
+          <li data-val="MTF-2-L-2">MTF-2-L-2</li>
+          <li data-val="MTF-3-S-2">MTF-3-S-2</li>
+          <li data-val="MTF-4-L-2">MTF-4-L-2</li>
+          <li data-val="MTV-5-L-2">MTV-5-L-2</li>
+          <li data-val="MTF-4-R-2">MTF-4-R-2</li>
+          <li data-val="MTV-5-R-2">MTV-5-R-2</li>
+          <li data-val="MTH-1-R-3">MTH-1-R-3</li>
+          <li data-val="MTH-2-R-3">MTH-2-R-3</li>
+          <li data-val="MTH-3-R-3">MTH-3-R-3</li>
+          <li data-val="MTH-4-R-3">MTH-4-R-3</li>
+          <li data-val="MTH-5-R-3">MTH-5-R-3</li>
+          <li data-val="MTH-1-L-3">MTH-1-L-3</li>
+          <li data-val="MTH-2-L-3">MTH-2-L-3</li>
+          <li data-val="MTH-3-L-3">MTH-3-L-3</li>
+          <li data-val="MTH-4-L-3">MTH-4-L-3</li>
+          <li data-val="MTH-5-L-3">MTH-5-L-3</li>
+          <li data-val="MTH-1-L-0">MTH-1-L-0</li>
+          <li data-val="MTH-1-L-1">MTH-1-L-1</li>
+          <li data-val="MTH-1-L-2">MTH-1-L-2</li>
+          <li data-val="MTH-1-R-0">MTH-1-R-0</li>
+          <li data-val="MTH-1-R-1">MTH-1-R-1</li>
+          <li data-val="MTH-1-R-2">MTH-1-R-2</li>
+        </ul>
+      </div>
+    </main>
+    <footer>
+    </footer>
+    <script src="layouts.js"></script>
+    
+<script type="text/javascript">
+
+  // all parameters needed to render the canvas
+ var layout = 'MTH-2-R-0';
+ var borderWidth =3;
+ var borderColor = '#fff';
+ var borderDraw = false;
+ $("#layout").change(function() {
+     context.clearRect(0, 0, canvas.width, canvas.height);
+     layout = $("#layout").val()
+     draw()
+ });
+
+ $("#layoutList li").on('click', function() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+     //console.log($(this).attr('data-val'))
+    layout = $(this).attr('data-val')
+    draw()
+ });
+ window.onload = draw;
+ //canvas setup
+ // var canvas = new fabric.Canvas('canvas');
+
+ var canvas = document.getElementById('canvas') // This is our virtual canvas. It shouldn't be added to the DOM unless we need it rendered
+ canvas.width = 1280;
+ canvas.height = 720;
+ // canvas.style.width  = '1280px';
+ // canvas.style.height = '720px';
+ var context = canvas.getContext('2d');
+ 
+
+ //fake sources
+ var landscape = new Image();
+ 
+ landscape.src = 'landscape.svg';
+
+ 
+ var portrait = new Image();
+
+ portrait.src = 'portrait.svg';
+
+ 
+ var banner1 = new Image();
+ 
+ banner1.src = 'banner1.svg';
+
+
+ var banner2 = new Image();
+
+ banner2.src = 'banner2.svg';
+
+ 
+ var s169 = new Image();
+ 
+ s169.src = 's169.svg';
+ 
+ 
+ var longInfo = new Image();
+ 
+ longInfo.src = 'longInfo.svg';
+  
+ 
+ var shortInfo = new Image();
+ 
+ shortInfo.src = 'shortInfo.svg';
+ 
+ 
+ var tag = new Image();
+ 
+ tag.src = 'tags.svg';
+ 
+ var advertiseInfo = new Image();
+ advertiseInfo.src = 'advertise.svg';
+
+ function draw() {
+
+    context.fillStyle = "transparent";  
+    //Canvas Border
+    context.strokeStyle = '#f00';
+    context.lineWidth = 3;
+    context.strokeRect(0, 0, 1280, 720);
+
+    context.fillRect(0, 0, canvas.width, canvas.height)
+    current = layouts[layout]
+    
+    current.landscape.forEach(function(elem) {
+        borderDraw = false;
+        if ((elem[2] - (16.0 / 9) * elem[3]) > 5) {
+          alert('Landscape Video distorted....')
+        }
+        if (borderDraw) {
+          context.strokeStyle = borderColor;
+          context.lineWidth = borderWidth;
+          context.strokeRect(elem[0], elem[1], elem[2], elem[3]);
+        }
+        context.drawImage(landscape, elem[0], elem[1], elem[2], elem[3])
+    })
+
+    current.ltags.forEach(function(elem) {
+      context.drawImage(tag, elem[0], elem[1], elem[2], elem[3])
+    })
+
+    current.portrait.forEach(function(elem) {
+      borderDraw = false;
+      if ((elem[3] - (16.0 / 9) * elem[2]) > 5) {
+        alert('Portrait Video distorted....')
+      }
+      if (borderDraw) {
+        context.strokeStyle = borderColor;
+        context.lineWidth = borderWidth;
+        context.strokeRect(elem[0], elem[1], elem[2], elem[3]);
+      }
+      context.drawImage(portrait, elem[0], elem[1], elem[2], elem[3])
+    })
+
+    current.ptags.forEach(function(elem) {
+      context.drawImage(tag, elem[0], elem[1], elem[2], elem[3])
+    })
+
+     
+    if (current.longInfo) {
+      if (current.longInfo.length == 4) {
+        elem = current.longInfo
+        // if ((elem[2] - (160.0/1280.0)*elem[3])>5){
+        //   alert('Long Info distorted....')
+        // }
+        context.drawImage(longInfo, elem[0], elem[1], elem[2], elem[3]);
+      }
+    }
+
+    if (current.advertiseInfo) {
+      if (current.advertiseInfo.length == 4) {
+        elem = current.advertiseInfo
+        // if ((elem[2] - (160.0/1280.0)*elem[3])>5){
+        //   alert('Long Info distorted....')
+        // }
+        context.drawImage(advertiseInfo, elem[0], elem[1], elem[2], elem[3]);
+      }
+    }
+
+    if (current.shortInfo) {
+      if (current.shortInfo.length == 4 ) {
+        elem = current.shortInfo
+        // if ((elem[2] - (281.0/1280.0)*elem[3])>5){
+        //   alert('Short Info distorted....')
+        //   }
+        context.drawImage(shortInfo, elem[0], elem[1], elem[2], elem[3]);
+      }
+    }
+
+    if (current.banner2) {
+      if (current.banner2.length == 4) {
+          borderDraw = false;
+          elem = current.banner2
+          if ((elem[3] - (256.0 / 1280.0) * elem[2]) > 5) {
+            alert('Banner2 distorted....')
+          }
+          if (borderDraw) {
+            context.strokeStyle = borderColor;
+            context.lineWidth = borderWidth;
+            context.strokeRect(elem[0], elem[1], elem[2], elem[3]);
+          }
+          context.drawImage(banner2, elem[0], elem[1], elem[2], elem[3])
+      }
+    }
+
+    if (current.banner1) {
+      if (current.banner1.length == 4) {
+        borderDraw = false;
+        elem = current.banner1
+        if ((elem[3] - (192.0 / 1280.0) * elem[2]) > 5) {
+          alert('Banner1 distorted....')
+        }
+        if (borderDraw) {
+          context.strokeStyle = borderColor;
+          context.lineWidth = borderWidth;
+          context.strokeRect(elem[0], elem[1], elem[2], elem[3]);
+        }
+        context.drawImage(banner1, elem[0], elem[1], elem[2], elem[3])
+      }
+    }
+
+    if (current.s169) {
+      if (current.s169.length == 4) {
+        borderDraw = false;
+        elem = current.s169
+        if ((elem[3] - (720.0 / 1280.0) * elem[2]) > 5) {
+          alert('s169 distorted....')
+        }
+        if (borderDraw) {
+          context.strokeStyle = borderColor;
+          context.lineWidth = borderWidth;
+          context.strokeRect(elem[0], elem[1], elem[2], elem[3]);
+        }
+        context.drawImage(s169, elem[0], elem[1], elem[2], elem[3])
+      }
+    }
+  }
+
+ function canvasToPng(link, canvasId, filename, scaleValue) {
+    newWidth = 1280 * scaleValue;
+    newHeight = 720 * scaleValue;
+
+    // Creating new canvas for PNG export form the first one
+    var resizedCanvas = document.createElement("canvas");
+    var resizedContext = resizedCanvas.getContext("2d");
+
+    resizedCanvas.height = newHeight;
+    resizedCanvas.width = newWidth;
+
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+
+    var resizedImage = resizedContext.drawImage(canvas, 0, 0, newWidth, newHeight);
+
+    link.href = resizedCanvas.toDataURL();
+    link.download = filename;
+    // var img=new Image(); 
+    // img.crossOrigin="anonymous";
+    // context.fillStyle = 'black';
+  }
+
+  document.getElementById("canvasDownloadBtn").addEventListener('click', function() {
+    canvasToPng(this, 'canvas', 'canvas.png', '.4');
+  }, false);
+
+ // draw function
+ function draw_old() {
+     layout = $('#layout').val() || layout;
+     context.fillStyle = 'black'
+     context.fillRect(0, 0, canvas.width, canvas.height)
+     if (videos.length === 0) {
+         // no opentok video
+     } else {
+         //layouts
+         if (videos.length == 1) {
+             // layouts for 1 source video
+             switch (layout) {
+                 case 'MTH-1-L-0':
+                     context.drawImage(v, 0, 0, canvas.width, canvas.height)
+                     break;
+                     // video extra cases (static or ad)
+                 case 'MTH-1-L-1':
+                     context.drawImage(v, 0, 0, canvas.width, canvas.height)
+                     break;
+             }
+             context.drawImage(videos[0], 0, 0, canvas.width, canvas.height)
+         } else if (videos.length > 1) {
+             // layouts for 2 source video
+             videos.forEach(function(v) {
+                 if (v.width > v.height) {
+                     // landscape video
+                     switch (layout) {
+                         case 'MTH-2-L-0':
+                             context.drawImage(v, .28 * canvas.width, .1 * canvas.height, .68 * canvas.width, .68 * canvas.height)
+                             break;
+                         case 'MTF-2-L-0':
+                             context.drawImage(v, .006 * canvas.width, .01 * canvas.height, .673 * canvas.width, .673 * canvas.height)
+                             break;
+                         case 'MTH-2-R-0':
+                             context.drawImage(v, .04 * canvas.width, .1 * canvas.height, .68 * canvas.width, .68 * canvas.height)
+                             break;
+                         case 'MTF-2-R-0':
+                             context.drawImage(v, .321 * canvas.width, .01 * canvas.height, .673 * canvas.width, .673 * canvas.height)
+                             break;
+                             // video extra cases (static or ad)
+                         case 'MTH-2-L-1':
+                             context.drawImage(v, (1 - .732) * canvas.width, .002 * canvas.height, .73 * canvas.width, .73 * canvas.height)
+                             context.drawImage(banner, (1 - .73325) * canvas.width, (1 - .262) * canvas.height, .73125 * canvas.width, .26 * canvas.height)
+                             break;
+                         case 'MTH-2-L-2':
+                             context.drawImage(v, (1 - .713) * canvas.width, .02 * canvas.height, .68 * canvas.width, .68 * canvas.height)
+                             context.drawImage(banner, 0.0125 * canvas.width, (1 - .282) * canvas.height, .975 * canvas.width, .26 * canvas.height)
+                             break;
+                         case 'MTH-2-L-3':
+                             context.drawImage(v, (1 - .585) * canvas.width, .01 * canvas.height, .485 * canvas.width, .485 * canvas.height)
+                             context.drawImage(banner, (1 - .585) * canvas.width, (0.505) * canvas.height, .485 * canvas.width, .485 * canvas.height)
+                             break;
+
+                         case 'MTH-2-R-1':
+                             context.drawImage(v, (.002) * canvas.width, .002 * canvas.height, .73 * canvas.width, .73 * canvas.height)
+                             context.drawImage(banner, (0.002) * canvas.width, (1 - .262) * canvas.height, .73125 * canvas.width, .26 * canvas.height)
+                             break;
+
+                         case 'MTH-2-R-2':
+                             context.drawImage(v, (0.033) * canvas.width, .02 * canvas.height, .68 * canvas.width, .68 * canvas.height)
+                             context.drawImage(banner, (0.0125) * canvas.width, (1 - .282) * canvas.height, .975 * canvas.width, .26 * canvas.height)
+                             break;
+                         case 'MTH-2-R-3':
+                             context.drawImage(v, (.1) * canvas.width, .01 * canvas.height, .485 * canvas.width, .485 * canvas.height)
+                             context.drawImage(banner, (.1) * canvas.width, (.505) * canvas.height, .485 * canvas.width, .485 * canvas.height)
+                             break;
+                         default:
+                             context.drawImage(v, 0, 0, canvas.width, canvas.height)
+                             break;
+                     }
+                 } else {
+                     // portraits
+                     switch (layout) {
+                         case 'MTH-2-L-0':
+                             context.drawImage(v, .04 * canvas.width, .1 * canvas.height, .21515625 * canvas.width, .68 * canvas.height)
+                             break;
+                         case 'MTF-2-L-0':
+                             context.drawImage(v, .684 * canvas.width, .01 * canvas.height, .31 * canvas.width, .98 * canvas.height)
+                             break;
+                         case 'MTH-2-R-0':
+                             context.drawImage(v, .745 * canvas.width, .1 * canvas.height, .21515625 * canvas.width, .68 * canvas.height)
+                             break;
+                         case 'MTF-2-R-0':
+                             context.drawImage(v, .006 * canvas.width, .01 * canvas.height, .31 * canvas.width, .98 * canvas.height)
+                             break;
+                             // video extra cases (static or ad)
+                         case 'MTH-2-L-1':
+                             context.drawImage(v, .002 * canvas.width, (1 - .8324) * canvas.height, .26275 * canvas.width, .8304 * canvas.height)
+                             break;
+                         case 'MTH-2-L-2':
+                             context.drawImage(v, 0.033 * canvas.width, .02 * canvas.height, 0.21 * canvas.width, .68 * canvas.height)
+                             break;
+                         case 'MTH-2-L-3':
+                             context.drawImage(v, 0.1 * canvas.width, .01 * canvas.height, 0.310078125 * canvas.width, .98 * canvas.height)
+                             break;
+                         case 'MTH-2-R-1':
+                             context.drawImage(v, (1 - .264) * canvas.width, (1 - .8324) * canvas.height, .26275 * canvas.width, .8304 * canvas.height)
+                             break;
+                         case 'MTH-2-R-2':
+                             context.drawImage(v, (1 - 0.243) * canvas.width, .02 * canvas.height, 0.21 * canvas.width, .68 * canvas.height)
+                             break;
+                         case 'MTH-2-R-3':
+                             context.drawImage(v, (1 - 0.41) * canvas.width, .01 * canvas.height, 0.310078125 * canvas.width, .98 * canvas.height)
+                             break;
+                         default:
+                             // context.drawImage(v, 0, 0, canvas.width, canvas.height)
+                             break;
+                     }
+                 }
+             });
+         }
+     }
+ }
+ draw()
+</script>
+</body>
+</html>
+

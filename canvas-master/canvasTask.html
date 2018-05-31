@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script  src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="fabric.min.js"></script> 
+  </head>
+  <body>
+
+    <main>
+      <!-- <video id="video" muted autoplay src="http://upload.wikimedia.org/wikipedia/commons/7/79/Big_Buck_Bunny_small.ogv" controls="false" style="visibility:hidden;width:0;"></video> -->
+      <canvas id="myCanvas" width="1280" height="720" style="border:1px solid red;"></canvas>
+    </main>
+
+  <script type="text/javascript">
+    $(function() {
+      var canvasTest = new fabric.Canvas('myCanvas',{fill: "#AE605F"});
+      var video1El = document.getElementById('video');
+      var imgElement = "";
+      // var url= "http://fabricjs.com/assets/pug_small.jpg";
+     
+      // fabric.Image.fromURL('da.png', function(img) {
+      // canvas.setOverlayImage(img);
+      //  // => -1
+      //  canvas.renderAll(); 
+      // });
+
+      canvasTest.setOverlayImage('overlay.png', canvasTest.renderAll.bind(canvasTest), {
+        opacity: .7,
+        angle: 0,
+        left: 0,
+        top: 0,
+        originX: 'left',
+        originY: 'top'
+      });
+
+      canvasTest.setBackgroundImage('login-register2.jpg', canvasTest.renderAll.bind(canvasTest), {
+          opacity: 0.5,
+          angle: 0,
+          left: 0,
+          top: 0,
+          originX: 'left',
+          originY: 'top',
+          crossOrigin: 'anonymous'
+      });
+
+      fabric.Image.fromURL('da.png', function(myImg) {
+        image1 = myImg.set({
+          left: 0,
+          top: 0,
+          width:1650,
+          height:900,
+          crossOrigin: 'anonymous'
+        });
+
+        image1.scale(0.199);
+        canvasTest.add(image1);
+
+        var normalText = new fabric.IText("I'm a normal text", {
+          left: 20,
+          top: 380,
+          fontSize: 55,
+          fill: "#AE605F",
+          
+        });
+        normalText.set({
+          'left': canvasTest.getWidth() - normalText.width -20
+        });
+        canvasTest.add(normalText);
+
+        var normalText1 = new fabric.IText("I'm a normal text", {
+          left: 20,
+          top: 480,
+          fontSize: 55,
+          fill: "#f00",
+        });
+        normalText1.set({
+          'left': canvasTest.getWidth() - normalText1.width -20
+        });
+        canvasTest.add(normalText1);
+
+        var normalText3 = new fabric.IText("I'm a normal text", {
+          left: 20,
+          top: 580,
+          fontSize: 55,
+          fill: "#000",
+        });
+        normalText3.set({
+          'left': canvasTest.getWidth() - normalText3.width -20
+        });
+        canvasTest.add(normalText3);
+
+        canvasTest.on('mouse:down', function(options) {
+          if (options.target) {
+            console.log('an object was clicked! ', options.target.type);
+          }
+        });
+        // var group = new fabric.Group([ normalText ], {  
+        //   angle: 0
+        // });
+
+        // var leftPostiton = canvasTest.getWidth()/2- group.getWidth()/2;
+        // console.log(leftPostiton);
+        // group.set({
+        //   'left':leftPostiton
+        // });
+
+        // canvasTest.add(group);
+        // canvasTest.renderAll();
+      });
+      
+      fabric.Object.prototype.customiseCornerIcons({
+            settings: {
+            borderColor: 'black',
+            cornerSize: 25,
+            cornerShape: 'circle',
+            cornerBackgroundColor: 'black',
+            cornerPadding: 10
+        },
+      });
+    });
+  </script>
+</body>
+</html>
+
