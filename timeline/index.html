@@ -5,6 +5,9 @@
 </head>
 <body class="fullBox">
 	<div class="mainBox">
+		<div class="mapDiv" id="map">
+          <!-- <img src="images/map.png" class="img-fluid"> -->
+        </div>
 		<div class="timeLineSec">
 			<div class="leftBlock timeWrap1">
 				<div class="timeLineTrack1 timeLine1">
@@ -33,6 +36,7 @@
 		</div>
 	</div>
 	<style type="text/css">
+
 		.fullBox,html{
 			height: 100%;
 			min-height: 100%;
@@ -41,11 +45,17 @@
 		}
 		.mainBox{
 			display:flex;
-			flex-direction:column;
+			flex-direction:row;
 			width:100%;
 			margin:auto;
-			justify-content: center;
+			align-items: center;
 			height: 100%;
+		}
+		.mapDiv{
+			flex:0 0 300px;
+			margin:0 auto;
+			height:310px;
+
 		}
 		.timeLineSec{
 			position:relative;
@@ -151,6 +161,8 @@
 	</style>
 	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="js/custom.js"></script>
+   <script async defer  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAckHUgMGhFoZBKswwC5_Re3gYJnN7_0j4&callback=initMap"></script>
+  	<script src="js/custom.js"></script>
+
 </body>
 </html>

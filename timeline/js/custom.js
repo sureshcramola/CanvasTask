@@ -1,4 +1,100 @@
+const startTime = 1516496636793 // when the event start in unix epoch time
+acceptedTubeins =  [
+    [
+        {
+            startTime: 646, // you need this one
+            track: 2, // you need this one
+            filled: true, // if it is filled get the user image from
+            // "https://s3.amazonaws.com/multitube-users-assets/"+userID+/"profile.jpeg"
+            fullname: "Salah Faroughi",
+            userID: "5a45b89786971e00040a270d",
+        },
+        {
+            startTime: 850,
+            track: 1,
+            icon: "female-user.jpeg",
+            filled: false // // if it is not filled get the placeholder image from
+            // "https://s3.amazonaws.com/multitube-brand-assets/"+icon
+        }
+    ],
+    [
+        {
+            startTime: 1600,
+            track: 4,
+            icon: "female-user.jpeg",
+            filled: false
+        }
+    ]
+]
+
+// blocks
+tubeinBlocks =  [
+    {
+        blockStarts: 600,
+        blockEnds: 1200
+    },
+    {
+        blockStarts: 1500,
+        blockEnds: 3300
+    }
+]
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition,showError);
+    } else { 
+        console.log("Geolocation is not supported by this browser.");
+    }
+}
+
+function showPosition(position) {
+    lat= position.coords.latitude;
+    long= position.coords.longitude;
+    initMap(lat,long);
+}
+
+function initMap(latitude,longitude) {
+	var location;
+	console.log(latitude)
+	location = {lat: latitude, lng: longitude};
+	
+
+	
+	
+	var map = new google.maps.Map(document.getElementById('map'), {
+	  zoom: 13,
+	  center: location,
+	  control:3,
+	  align:1,
+	  animation : google.maps.Animation.DROP
+	});
+	var marker = new google.maps.Marker({position: location, map: map})
+}
+
+function showError(error) {
+	lat= 32.716529;
+    lng= -117.16951799999998;
+	initMap(lat,lng)
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+
+            console.log("User denied the request for Geolocation.")
+            break;
+        case error.POSITION_UNAVAILABLE:
+            console.log("Location information is unavailable.")
+            break;
+        case error.TIMEOUT:
+            console.log("The request to get user location timed out.")
+            break;
+        case error.UNKNOWN_ERROR:
+            console.log("An unknown error occurred.")
+            break;
+    }
+}
+
+
 $(document).ready(function(){
+	getLocation();
 	$( ".track1User" ).draggable({
 		revert: "invalid",
 		containment: ".timeWrap1",
@@ -41,9 +137,6 @@ $(document).ready(function(){
 		});
 
 		timelineCurrentTime1($(this).position().left)
-
-
-
 	})
 
 	$(document).on('click','.timeWrap2 .user',function(){
@@ -60,6 +153,8 @@ $(document).ready(function(){
 	minutesToTime1(timeLine1Minutes);
 	minutesToTime2(timeLine2Minutes);
 });
+
+var block1PerMinute,block2PerMinute;
 
 function getTimeLineMin1(){
   // StartTime for timeline1
@@ -97,7 +192,7 @@ function getTimeLineMin2(){
   return minutesTimeline1;
 }
 
-var block1PerMinute,block2PerMinute;
+
 
 function minutesToTime1(minutes1){
 	block1PerMinute=($('.timeWrap1 .timeLine2').width())/(minutes1+.6);
